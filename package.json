@@ -1,0 +1,10 @@
+{
+  "name": "MMM-WeeWx",
+  "version": "0.0.1",
+  "description": "Show WeeWx from subscribed MQTT message",
+  "author": "Tom Kotz",
+  "dependencies": {
+    "jsonpointer": "^4.0.1",
+    "mqtt": "^2.18.0"
+  }
+}
