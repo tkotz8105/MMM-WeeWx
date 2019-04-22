@@ -3,7 +3,8 @@ Module.register("MMM-WeeWx", {
 
     getScripts: function () {
         return [
-            this.file('node_modules/jsonpointer/jsonpointer.js')
+            this.file('node_modules/jsonpointer/jsonpointer.js'),
+            'getMoonPhase.js'
         ];
     },
 
@@ -178,6 +179,10 @@ Module.register("MMM-WeeWx", {
             console.log(self.name + ': No values');
             return wrapper;
         }
+        var today = new Date();
+        var moonAgeDays = getMoonPhase(today.getFullYear(), today.getMonth()+1, today.getDate()).moonAgeDays;
+        console.log('Moon Age Days:',moonAgeDays);
+        this.moonPhaseIcon = "<img class='moonPhaseIcon' src='https://www.wunderground.com/graphics/moonpictsnew/moon" + moonAgeDays + ".gif'>";
         var subWrapper = document.createElement("table");
         subWrapper.className = "table-center";
 
@@ -208,6 +213,12 @@ Module.register("MMM-WeeWx", {
             rh.className = "medium vcen center";
             rh.innerHTML = "RH " + data.rh + "%";
             temp_rh.appendChild(rh);
+            temprh_table.appendChild(temp_rh);
+
+            var moonPhaseIcon = document.createElement("td");
+            moonPhaseIcon.innerHTML = this.moonPhaseIcon;
+            moonPhaseIcon.className = "moonPhaseIcon";
+            temp_rh.appendChild(moonPhaseIcon);
             temprh_table.appendChild(temp_rh);
 
             // // valueWrapper.className = "align-right medium " + (tooOld ? "dimmed" : "bright");
